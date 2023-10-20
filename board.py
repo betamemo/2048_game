@@ -53,11 +53,11 @@ class Board():
             self.new_tiles.append(num + zero)
 
         # merge
-        # for row in self.tiles:
-        #     for i in range(len(row) - 1):
-        #         if row[i] == row[i+1]:
-        #             row[i] += row[i+1]
-        #             row[i+1] = 0
+        for x in range(len(self.new_tiles)):
+            for y in range(len(self.new_tiles[x]) - 1):
+                if self.new_tiles[x][y] > 0 and self.new_tiles[x][y] == self.new_tiles[x][y + 1]:
+                    self.new_tiles[x][y] += self.new_tiles[x][y + 1]
+                    self.new_tiles[x][y + 1] = 0
         self.update_tiles()
 
     def go_right(self):
