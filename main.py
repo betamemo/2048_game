@@ -12,7 +12,7 @@ screen.listen()
 # screen.onkeypress(fun=board.go_up, key='Up')
 # screen.onkeypress(fun=board.go_down, key='Down')
 screen.onkeypress(fun=board.go_left, key='Left')
-# screen.onkeypress(fun=board.go_right, key='Right')
+screen.onkeypress(fun=board.go_right, key='Right')
 
 screen.update()
 

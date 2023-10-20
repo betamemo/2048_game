@@ -16,7 +16,7 @@ class Board():
         self.screen = screen
         self.tiles = [[]]
         self.tiles = [
-            [0, 2, 0, 8],
+            [0, 2, 0, 2],
             [0, 0, 0, 0],
             [0, 0, 0, 4],
             [0, 0, 0, 0]
@@ -45,10 +45,29 @@ class Board():
         self.screen.update()
 
     def go_left(self):
+        self.new_tiles = []
+        # move
         for row in self.tiles:
-            # move
             num = [i for i in row if i > 0]
             zero = [i for i in row if i == 0]
             self.new_tiles.append(num + zero)
+
+        # merge
+        # for row in self.tiles:
+        #     for i in range(len(row) - 1):
+        #         if row[i] == row[i+1]:
+        #             row[i] += row[i+1]
+        #             row[i+1] = 0
+        self.update_tiles()
+
+    def go_right(self):
+        self.new_tiles = []
+        # move
+        for row in self.tiles:
+            num = [i for i in row if i > 0]
+            zero = [i for i in row if i == 0]
+            self.new_tiles.append(zero + num)
+
+        # merge
 
         self.update_tiles()
