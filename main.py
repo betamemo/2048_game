@@ -34,7 +34,16 @@ class Board:
                 while len(row) < self.row:
                     row.append(0)
 
+            elif direction == 'right':
+                for i in range(len(row) - 1):
+                    if row[i] == row[i + 1]:
+                        row[i + 1] *= 2
+                        row[i] = 0
+
+                while len(row) < self.row:
+                    row.insert(0, 0)
             self.new_board.append(row)
+        self.update_board()
 
 
 board = Board(4, 4)
