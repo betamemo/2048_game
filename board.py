@@ -1,4 +1,4 @@
-from turtle import Turtle
+from turtle import Turtle, Screen
 
 FONT = ('verdana', 30, 'normal')
 STARTING_X = -120
@@ -14,14 +14,12 @@ class Board():
         self.turtle.hideturtle()
         self.turtle.goto(STARTING_X, STARTING_Y)
         self.screen = screen
-        self.tiles = [[]]
         self.tiles = [
-            [0, 2, 0, 2],
+            [0, 2, 2, 2],
             [0, 0, 0, 0],
             [0, 0, 0, 4],
             [0, 0, 0, 0]
         ]
-        self.new_tiles = []
         self.draw_tiles()
 
     def draw_tiles(self):
@@ -34,40 +32,54 @@ class Board():
             self.turtle.goto(STARTING_X, self.turtle.ycor() - SPACE)
 
     def update_tiles(self):
-        # print(self.tiles)
-        # print(self.new_tiles)
-
-        tmp = self.tiles
-        self.tiles = self.new_tiles
-        self.new_tiles = tmp
+        # test
+        print(self.tiles)
 
         self.draw_tiles()
         self.screen.update()
 
+    def get_num(self, l):
+        return [i for i in l if i > 0]
+
+    def get_zero(self, l):
+        return [i for i in l if i == 0]
+
+    def move_left(self):
+        for i in range(len(self.tiles)):
+            self.tiles[i] = self.get_num(self.tiles[i]) + self.get_zero(self.tiles[i])
+
+    def move_right(self):
+        for i in range(len(self.tiles)):
+            self.tiles[i] = self.get_zero(self.tiles[i]) + self.get_num(self.tiles[i])
+
     def go_left(self):
-        self.new_tiles = []
+
         # move
-        for row in self.tiles:
-            num = [i for i in row if i > 0]
-            zero = [i for i in row if i == 0]
-            self.new_tiles.append(num + zero)
+        self.move_left()
 
         # merge
-        for x in range(len(self.new_tiles)):
-            for y in range(len(self.new_tiles[x]) - 1):
-                if self.new_tiles[x][y] > 0 and self.new_tiles[x][y] == self.new_tiles[x][y + 1]:
-                    self.new_tiles[x][y] += self.new_tiles[x][y + 1]
-                    self.new_tiles[x][y + 1] = 0
+        # for x in range(len(self.tiles)):
+        #     for y in range(len(self.new_tiles[x]) - 1):
+        #         if self.new_tiles[x][y] > 0 and self.new_tiles[x][y] == self.new_tiles[x][y + 1]:
+        #             self.new_tiles[x][y] += self.new_tiles[x][y + 1]
+        #             self.new_tiles[x][y + 1] = 0
+
+        # display
         self.update_tiles()
 
-    def go_right(self):
-        self.new_tiles = []
-        # move
-        for row in self.tiles:
-            num = [i for i in row if i > 0]
-            zero = [i for i in row if i == 0]
-            self.new_tiles.append(zero + num)
 
-        # merge
+screen = Screen()
+screen.setup(500, 500)
+screen.tracer(0)
 
-        self.update_tiles()
+board = Board(screen)
+
+screen.listen()
+# screen.onkeypress(fun=board.go_up, key='Up')
+# screen.onkeypress(fun=board.go_down, key='Down')
+screen.onkeypress(fun=board.go_left, key='Left')
+# screen.onkeypress(fun=board.go_right, key='Right')
+
+screen.update()
+
+screen.exitonclick()
