@@ -41,6 +41,11 @@ class Board:
             row, col = random.choice(empty)
             board[row][col] = 2
 
+    def update_board(self):
+        tmp = self.board
+        self.board = self.new_board
+        self.new_board = tmp
+
     def move(self, direction):
         self.new_board = []
         for row in self.board:
@@ -65,6 +70,7 @@ class Board:
                     row.insert(0, 0)
             self.new_board.append(row)
         self.update_board()
+        # self.random_tiles(self.board)
 
     def transpose(self):
         self.new_board = []
@@ -105,3 +111,6 @@ while game_is_on:
         game_is_on = False
     else:
         print('invalid key!')
+
+    # count score
+    # game over
