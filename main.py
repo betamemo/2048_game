@@ -12,3 +12,10 @@ class Board:
             s += '\n'
         return s
 
+    def create_board(self, row, col):
+        board = []
+        for i in range(col):
+            board.append([0] * row)
+
+        self.add_tiles(board)
+        return board
