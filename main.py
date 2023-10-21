@@ -20,6 +20,22 @@ class Board:
         self.add_tiles(board)
         return board
 
+    def move(self, direction):
+        self.new_board = []
+        for row in self.board:
+            row = [i for i in row if i > 0]
+
+            if direction == 'left':
+                for i in range(len(row) - 1):
+                    if row[i] == row[i + 1]:
+                        row[i] *= 2
+                        row[i + 1] = 0
+
+                while len(row) < self.row:
+                    row.append(0)
+
+            self.new_board.append(row)
+
 
 board = Board(4, 4)
 print(board)
