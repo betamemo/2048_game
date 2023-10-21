@@ -45,6 +45,15 @@ class Board:
             self.new_board.append(row)
         self.update_board()
 
+    def transpose(self):
+        self.new_board = []
+        for c in range(self.col):
+            row = []
+            for r in range(self.row):
+                row.append(self.board[r][c])
+            self.new_board.append(row)
+        self.update_board()
+
 
 board = Board(4, 4)
 print(board)
