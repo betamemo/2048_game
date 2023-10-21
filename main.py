@@ -1,19 +1,14 @@
-from turtle import Screen
+class Board:
+    def __init__(self, row, col):
+        self.row = row
+        self.col = col
+        self.board = self.create_board(row, col)
+        self.new_board = []
 
-from board import Board
+    def __str__(self):
+        s = ''
+        for row in self.board:
+            s += ''.join([str(i) if i > 0 else '.' for i in row])
+            s += '\n'
+        return s
 
-screen = Screen()
-screen.setup(500, 500)
-screen.tracer(0)
-
-board = Board(screen)
-
-screen.listen()
-# screen.onkeypress(fun=board.go_up, key='Up')
-# screen.onkeypress(fun=board.go_down, key='Down')
-screen.onkeypress(fun=board.go_left, key='Left')
-screen.onkeypress(fun=board.go_right, key='Right')
-
-screen.update()
-
-screen.exitonclick()
