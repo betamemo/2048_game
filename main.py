@@ -1,3 +1,6 @@
+import random
+
+
 class Board:
     def __init__(self, row, col):
         self.row = row
@@ -19,6 +22,24 @@ class Board:
 
         self.add_tiles(board)
         return board
+
+    def add_tiles(self, board):
+        # board[random.randint(0, self.row - 1)][random.randint(0, self.col - 1)] = 2
+        # board[random.randint(0, self.row - 1)][random.randint(0, self.col - 1)] = 2
+
+        # check empty
+        empty = []
+        for row in range(self.row):
+            for col in range(self.col):
+                if board[row][col] == 0:
+                    empty.append((row, col))
+        print(empty)
+        if empty:
+            row, col = random.choice(empty)
+            board[row][col] = 2
+
+            row, col = random.choice(empty)
+            board[row][col] = 2
 
     def move(self, direction):
         self.new_board = []
