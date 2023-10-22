@@ -67,7 +67,6 @@ class Board:
                     row.insert(0, 0)
             self.new_board.append(row)
         self.update_board()
-        # self.random_tiles(self.board)
 
     def transpose(self):
         self.new_board = []
@@ -85,23 +84,35 @@ game_is_on = True
 while game_is_on:
     print(board)
     key = input('wasd?: ')
-    if key == 'w':  # move up
+
+    # move up
+    if key == 'w':
         board.transpose()
         board.move('left')
         board.transpose()
-    elif key == 'a':  # move left
+
+    # move left
+    elif key == 'a':
         board.move('left')
-    elif key == 's':  # move down
+
+    # move down
+    elif key == 's':
         board.transpose()
         board.move('right')
         board.transpose()
-    elif key == 'd':  # move right
+
+    # move right
+    elif key == 'd':
         board.move('right')
-    elif key == 'q':  # quit
+
+    # quit game
+    elif key == 'q':
         print('quit')
         game_is_on = False
+
     else:
         print('invalid key!')
+
     board.add_tiles()
 
     # count score
