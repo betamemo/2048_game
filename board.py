@@ -78,12 +78,12 @@ class Board():
             while 0 in row:
                 row.remove(0)
 
-                # merge
-                for i in range(len(row) - 1):
-                    if row[i] == row[i + 1]:
-                        row[i] *= 2
-                        row[i + 1] = 0
-                        self.score += row[i]
+            # merge
+            for i in range(len(row) - 1):
+                if row[i] == row[i + 1]:
+                    row[i] *= 2
+                    row[i + 1] = 0
+                    self.score += row[i]
 
             if direction == 'Left':
                 while len(row) < self.row:
