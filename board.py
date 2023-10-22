@@ -104,23 +104,42 @@ class Board():
 
     def go_left(self):
         self.move('Left')
+        self.add_tiles()
 
     def go_right(self):
         self.move('Right')
+        self.add_tiles()
 
     def go_up(self):
         self.transpose()
         self.move('Left')
         self.transpose()
+        self.add_tiles()
 
     def go_down(self):
         self.transpose()
         self.move('Right')
         self.transpose()
+        self.add_tiles()
 
     def display_score(self):
         self.turtle.goto(0, 200)
         self.turtle.write(f'Score: {self.score}', align='center', font=FONT)
+
+    def display_game_over(self):
+        self.turtle.goto(0, -200)
+        self.turtle.write(f'Game Over!', align='center', font=FONT)
+
+    def game_over(self):
+        # check empty
+        empty = []
+        for row in range(self.row):
+            for col in range(self.col):
+                if self.board[row][col] == 0:
+                    empty.append((row, col))
+
+        if not empty:
+            return True
 
 
 screen = Screen()
@@ -136,6 +155,13 @@ screen.onkeypress(fun=board.go_down, key='Down')
 screen.onkeypress(fun=board.go_left, key='Left')
 screen.onkeypress(fun=board.go_right, key='Right')
 
-screen.update()
+game_is_on = True
+while game_is_on:
+    screen.update()
+
+    # game over
+    if board.game_over():
+        board.display_game_over()
+        game_is_on = False
 
 screen.exitonclick()
