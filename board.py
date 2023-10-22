@@ -137,6 +137,15 @@ class Board():
             return True
         return False
 
+    def display_winner(self):
+        self.turtle.goto(0, -200)
+        self.turtle.write(f'Winner!', align='center', font=FONT)
+
+    def winner(self):
+        for row in self.board:
+            if 2048 in row:
+                return True
+        return False
 
 screen = Screen()
 screen.setup(600, 600)
@@ -155,8 +164,11 @@ game_is_on = True
 while game_is_on:
     screen.update()
 
-    # game over
-    if board.game_over():
+    if board.winner():
+        board.display_winner()
+        game_is_on = False
+
+    elif board.game_over():
         board.display_game_over()
         game_is_on = False
 
