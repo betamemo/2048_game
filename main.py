@@ -57,6 +57,7 @@ class Board:
                     if row[i] == row[i + 1]:
                         row[i] *= 2
                         row[i + 1] = 0
+                        self.add_score(row[i])
 
             # add 0 after merge
             if direction == 'left':
@@ -77,7 +78,7 @@ class Board:
             self.new_board.append(row)
         self.update_board()
 
-    def count_score(self, score):
+    def add_score(self, score):
         self.score += score
 
     def game_over(self):
@@ -88,6 +89,7 @@ board = Board(4, 4)
 
 game_is_on = True
 while game_is_on:
+    print('Score:', board.score)
     print(board)
     key = input('Enter direction (w/a/s/d)?: ')
     key = key.lower()
@@ -124,5 +126,4 @@ while game_is_on:
     else:
         print('Invalid key. Please try again.')
 
-    # count score
     # game over
