@@ -37,15 +37,16 @@ class Board():
             board.append([0] * row)
         return board
 
-    def add_tiles(self):
-
-        # check empty
+    def empty_tiles(self):
         empty = []
         for row in range(self.row):
             for col in range(self.col):
                 if self.board[row][col] == 0:
                     empty.append((row, col))
+        return empty
 
+    def add_tiles(self):
+        empty = self.empty_tiles()
         if empty:
             row, col = random.choice(empty)
             self.board[row][col] = 2
@@ -131,15 +132,10 @@ class Board():
         self.turtle.write(f'Game Over!', align='center', font=FONT)
 
     def game_over(self):
-        # check empty
-        empty = []
-        for row in range(self.row):
-            for col in range(self.col):
-                if self.board[row][col] == 0:
-                    empty.append((row, col))
-
+        empty = self.empty_tiles()
         if not empty:
             return True
+        return False
 
 
 screen = Screen()
