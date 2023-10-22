@@ -1,3 +1,4 @@
+import random
 from turtle import Turtle, Screen
 
 FONT = ('verdana', 30, 'normal')
@@ -14,16 +15,41 @@ class Board():
         self.turtle.hideturtle()
         self.turtle.goto(STARTING_X, STARTING_Y)
         self.screen = screen
-        self.board = [
-            [0, 2, 2, 2],
-            [0, 0, 0, 0],
-            [0, 0, 0, 4],
-            [0, 0, 0, 0]
-        ]
+        # self.board = [
+        #     [0, 2, 2, 2],
+        #     [0, 0, 0, 0],
+        #     [0, 0, 0, 4],
+        #     [0, 0, 0, 0]
+        # ]
         self.row = row
         self.col = col
-        self.new_board = []
+        self.board = self.create_board(row, col)
+        self.add_tiles()
         self.draw_tiles()
+
+        self.new_board = []
+
+    def create_board(self, row, col):
+        board = []
+        for i in range(col):
+            board.append([0] * row)
+        return board
+
+    def add_tiles(self):
+
+        # check empty
+        empty = []
+        for row in range(self.row):
+            for col in range(self.col):
+                if self.board[row][col] == 0:
+                    empty.append((row, col))
+
+        if empty:
+            row, col = random.choice(empty)
+            self.board[row][col] = 2
+
+            row, col = random.choice(empty)
+            self.board[row][col] = 2
 
     def draw_tiles(self):
         self.turtle.clear()
@@ -63,11 +89,30 @@ class Board():
             self.new_board.append(row)
         self.update_board()
 
+    def transpose(self):
+        self.new_board = []
+        for c in range(self.col):
+            row = []
+            for r in range(self.row):
+                row.append(self.board[r][c])
+            self.new_board.append(row)
+        self.update_board()
+
     def go_left(self):
         self.move('Left')
 
     def go_right(self):
         self.move('Right')
+
+    def go_up(self):
+        self.transpose()
+        self.move('Left')
+        self.transpose()
+
+    def go_down(self):
+        self.transpose()
+        self.move('Right')
+        self.transpose()
 
 
 screen = Screen()
@@ -77,8 +122,8 @@ screen.tracer(0)
 board = Board(screen)
 
 screen.listen()
-# screen.onkeypress(fun=board.go_up, key='Up')
-# screen.onkeypress(fun=board.go_down, key='Down')
+screen.onkeypress(fun=board.go_up, key='Up')
+screen.onkeypress(fun=board.go_down, key='Down')
 screen.onkeypress(fun=board.go_left, key='Left')
 screen.onkeypress(fun=board.go_right, key='Right')
 
