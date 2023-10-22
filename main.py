@@ -6,6 +6,7 @@ class Board:
         self.row = row
         self.col = col
         self.board = self.create_board(row, col)
+        self.add_tiles()
         self.new_board = []
 
     def __str__(self):
@@ -19,25 +20,23 @@ class Board:
         board = []
         for i in range(col):
             board.append([0] * row)
-
-        self.add_tiles(board)
         return board
 
-    def add_tiles(self, board):
+    def add_tiles(self):
 
         # check empty
         empty = []
         for row in range(self.row):
             for col in range(self.col):
-                if board[row][col] == 0:
+                if self.board[row][col] == 0:
                     empty.append((row, col))
 
         if empty:
             row, col = random.choice(empty)
-            board[row][col] = 2
+            self.board[row][col] = 2
 
             row, col = random.choice(empty)
-            board[row][col] = 2
+            self.board[row][col] = 2
 
     def update_board(self):
         tmp = self.board
@@ -103,6 +102,7 @@ while game_is_on:
         game_is_on = False
     else:
         print('invalid key!')
+    board.add_tiles()
 
     # count score
     # game over
