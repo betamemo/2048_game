@@ -8,6 +8,7 @@ class Board:
         self.board = self.create_board(row, col)
         self.add_tiles()
         self.new_board = []
+        self.score = 0
 
     def __str__(self):
         s = ''
@@ -46,23 +47,22 @@ class Board:
     def move(self, direction):
         self.new_board = []
         for row in self.board:
-            row = [i for i in row if i > 0]
+            while 0 in row:
 
-            if direction == 'left':
+                # remove 0 before merge
+                row.remove(0)
+
+                # merge
                 for i in range(len(row) - 1):
                     if row[i] == row[i + 1]:
                         row[i] *= 2
                         row[i + 1] = 0
 
+            # add 0 after merge
+            if direction == 'left':
                 while len(row) < self.row:
                     row.append(0)
-
             elif direction == 'right':
-                for i in range(len(row) - 1):
-                    if row[i] == row[i + 1]:
-                        row[i + 1] *= 2
-                        row[i] = 0
-
                 while len(row) < self.row:
                     row.insert(0, 0)
             self.new_board.append(row)
@@ -77,6 +77,12 @@ class Board:
             self.new_board.append(row)
         self.update_board()
 
+    def count_score(self, score):
+        self.score += score
+
+    def game_over(self):
+        print('game over')
+
 
 board = Board(4, 4)
 
@@ -84,6 +90,7 @@ game_is_on = True
 while game_is_on:
     print(board)
     key = input('wasd?: ')
+    key = key.lower()
 
     # move up
     if key == 'w':
@@ -107,7 +114,7 @@ while game_is_on:
 
     # quit game
     elif key == 'q':
-        print('quit')
+        print('turn off the game. bye!')
         game_is_on = False
 
     else:
