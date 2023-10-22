@@ -147,6 +147,7 @@ class Board():
                 return True
         return False
 
+
 screen = Screen()
 screen.setup(600, 600)
 screen.title('2048 Game')
