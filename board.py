@@ -85,6 +85,9 @@ class Board():
                     row[i + 1] = 0
                     self.score += row[i]
 
+            while 0 in row:
+                row.remove(0)
+
             if direction == 'Left':
                 while len(row) < self.row:
                     row.append(0)
