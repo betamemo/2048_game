@@ -97,20 +97,24 @@ while game_is_on:
         board.transpose()
         board.move('left')
         board.transpose()
+        board.add_tiles()
 
     # move left
     elif key == 'a':
         board.move('left')
+        board.add_tiles()
 
     # move down
     elif key == 's':
         board.transpose()
         board.move('right')
         board.transpose()
+        board.add_tiles()
 
     # move right
     elif key == 'd':
         board.move('right')
+        board.add_tiles()
 
     # quit game
     elif key == 'q':
@@ -119,8 +123,6 @@ while game_is_on:
 
     else:
         print('invalid key!')
-
-    board.add_tiles()
 
     # count score
     # game over
