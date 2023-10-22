@@ -10,18 +10,15 @@ SPACE = 80
 class Board():
 
     def __init__(self, screen, row=4, col=4):
+        # init board
         self.turtle = Turtle()
         self.turtle.penup()
         self.turtle.hideturtle()
         self.turtle.goto(STARTING_X, STARTING_Y)
         self.screen = screen
+
+        # create game
         self.score = 0
-        # self.board = [
-        #     [0, 2, 2, 2],
-        #     [0, 0, 0, 0],
-        #     [0, 0, 0, 4],
-        #     [0, 0, 0, 0]
-        # ]
         self.row = row
         self.col = col
         self.board = self.create_board(row, col)
