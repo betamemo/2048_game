@@ -15,6 +15,7 @@ class Board():
         self.turtle.hideturtle()
         self.turtle.goto(STARTING_X, STARTING_Y)
         self.screen = screen
+        self.score = 0
         # self.board = [
         #     [0, 2, 2, 2],
         #     [0, 0, 0, 0],
@@ -25,7 +26,8 @@ class Board():
         self.col = col
         self.board = self.create_board(row, col)
         self.add_tiles()
-        self.draw_tiles()
+        self.draw_board()
+        self.display_score()
 
         self.new_board = []
 
@@ -51,7 +53,7 @@ class Board():
             row, col = random.choice(empty)
             self.board[row][col] = 2
 
-    def draw_tiles(self):
+    def draw_board(self):
         self.turtle.clear()
         self.turtle.goto(STARTING_X, STARTING_Y)
         for row in self.board:
@@ -65,7 +67,8 @@ class Board():
         self.board = self.new_board
         self.new_board = tmp
 
-        self.draw_tiles()
+        self.draw_board()
+        self.display_score()
         self.screen.update()
 
     def move(self, direction):
@@ -79,6 +82,7 @@ class Board():
                     if row[i] == row[i + 1]:
                         row[i] *= 2
                         row[i + 1] = 0
+                        self.score += row[i]
 
             if direction == 'Left':
                 while len(row) < self.row:
@@ -114,9 +118,14 @@ class Board():
         self.move('Right')
         self.transpose()
 
+    def display_score(self):
+        self.turtle.goto(0, 200)
+        self.turtle.write(f'Score: {self.score}', align='center', font=FONT)
+
 
 screen = Screen()
-screen.setup(500, 500)
+screen.setup(600, 600)
+screen.title('2048 Game')
 screen.tracer(0)
 
 board = Board(screen)
