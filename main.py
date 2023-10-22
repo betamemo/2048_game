@@ -24,8 +24,6 @@ class Board:
         return board
 
     def add_tiles(self, board):
-        # board[random.randint(0, self.row - 1)][random.randint(0, self.col - 1)] = 2
-        # board[random.randint(0, self.row - 1)][random.randint(0, self.col - 1)] = 2
 
         # check empty
         empty = []
@@ -33,7 +31,7 @@ class Board:
             for col in range(self.col):
                 if board[row][col] == 0:
                     empty.append((row, col))
-        print(empty)
+
         if empty:
             row, col = random.choice(empty)
             board[row][col] = 2
@@ -83,29 +81,23 @@ class Board:
 
 
 board = Board(4, 4)
-print(board)
 
 game_is_on = True
 while game_is_on:
+    print(board)
     key = input('wasd?: ')
-
     if key == 'w':  # move up
         board.transpose()
         board.move('left')
         board.transpose()
-        board.add_tiles()
-        print(board)
     elif key == 'a':  # move left
         board.move('left')
-        print(board)
     elif key == 's':  # move down
         board.transpose()
         board.move('right')
         board.transpose()
-        print(board)
     elif key == 'd':  # move right
         board.move('right')
-        print(board)
     elif key == 'q':  # quit
         print('quit')
         game_is_on = False
