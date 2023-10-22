@@ -89,7 +89,7 @@ board = Board(4, 4)
 game_is_on = True
 while game_is_on:
     print(board)
-    key = input('wasd?: ')
+    key = input('Enter direction (w/a/s/d)?: ')
     key = key.lower()
 
     # move up
@@ -118,11 +118,11 @@ while game_is_on:
 
     # quit game
     elif key == 'q':
-        print('turn off the game. bye!')
+        print('Turn off the game. Bye!')
         game_is_on = False
 
     else:
-        print('invalid key!')
+        print('Invalid key. Please try again.')
 
     # count score
     # game over
