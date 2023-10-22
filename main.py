@@ -82,7 +82,16 @@ class Board:
         self.score += score
 
     def game_over(self):
-        print('game over')
+
+        # check empty
+        empty = []
+        for row in range(self.row):
+            for col in range(self.col):
+                if self.board[row][col] == 0:
+                    empty.append((row, col))
+
+        if not empty:
+            return True
 
 
 board = Board(4, 4)
@@ -127,3 +136,6 @@ while game_is_on:
         print('Invalid key. Please try again.')
 
     # game over
+    if board.game_over():
+        print('game over')
+        game_is_on = False
